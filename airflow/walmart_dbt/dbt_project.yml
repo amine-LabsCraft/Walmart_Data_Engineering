@@ -1,0 +1,32 @@
+name: "walmart_dbt"
+version: "1.0.0"
+profile: "walmart_dbt"
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  walmart_dbt:
+
+    silver_T: 
+        +materialized: incremental
+        +schema: silver_T
+    silver_B: 
+         +materialized: table
+         +schema: silver_b
+
+    gold: 
+        +materialized: table
+        +schema: gold
+        ephemeral: 
+             +materialized: ephemeral
+         
+

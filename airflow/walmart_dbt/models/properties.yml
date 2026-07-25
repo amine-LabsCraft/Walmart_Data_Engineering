@@ -1,0 +1,487 @@
+version: 2
+
+models:
+
+  # ============================================================
+  # CUSTOMERS
+  # ============================================================
+
+  - name: customers_t
+    description: >
+      Table Silver contenant tous les clients nettoyés,
+      actifs et inactifs.
+
+    columns:
+
+      - name: customer_id
+        description: Clé primaire du client.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: first_name
+        description: Prénom du client.
+        data_tests:
+          - not_null
+
+      - name: last_name
+        description: Nom de famille du client.
+        data_tests:
+          - not_null
+
+      - name: email
+        description: Adresse email du client.
+        data_tests:
+          - not_null
+          
+
+      - name: phone
+        description: Numéro de téléphone du client.
+
+      - name: city
+        description: Ville de résidence du client.
+
+      - name: province
+        description: Province ou région du client.
+
+      - name: country
+        description: Pays de résidence du client.
+        data_tests:
+          - not_null
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si le client est actif ou inactif.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
+
+
+  # ============================================================
+  # EMPLOYEES
+  # ============================================================
+
+  - name: employees_t
+    description: >
+      Table Silver contenant tous les employés nettoyés,
+      actifs et inactifs.
+
+    columns:
+
+      - name: employee_id
+        description: Clé primaire de l’employé.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: store_id
+        description: Clé étrangère vers le magasin.
+        data_tests:
+              - not_null
+              - greater_than:
+                  arguments:
+                    value: 0
+              - relationships:
+                  arguments:
+                    to: ref('stores_t')
+                    field: store_id
+                  config:
+                    severity: warn
+                    store_failures: true
+
+      - name: first_name
+        description: Prénom de l’employé.
+        data_tests:
+          - not_null
+
+      - name: last_name
+        description: Nom de famille de l’employé.
+        data_tests:
+          - not_null
+
+      - name: email
+        description: Adresse email professionnelle.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: job_title
+        description: Fonction occupée par l’employé.
+        data_tests:
+          - not_null
+
+      - name: salary
+        description: Salaire de l’employé.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si l’employé est actif ou inactif.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
+
+
+  # ============================================================
+  # STORES
+  # ============================================================
+
+  - name: stores_t
+    description: >
+      Table Silver contenant tous les magasins nettoyés,
+      actifs et inactifs.
+
+    columns:
+
+      - name: store_id
+        description: Clé primaire du magasin.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: store_name
+        description: Nom commercial du magasin.
+        data_tests:
+          - not_null
+
+      - name: city
+        description: Ville du magasin.
+        data_tests:
+          - not_null
+
+      - name: province
+        description: Province ou région du magasin.
+        data_tests:
+          - not_null
+
+      - name: country
+        description: Pays du magasin.
+        data_tests:
+          - not_null
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si le magasin est actif ou inactif.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
+
+
+  # ============================================================
+  # PRODUCTS
+  # ============================================================
+
+  - name: products_t
+    description: >
+      Table Silver contenant tous les produits nettoyés,
+      actifs et inactifs.
+
+    columns:
+
+      - name: product_id
+        description: Clé primaire du produit.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: product_name
+        description: Nom commercial du produit.
+        data_tests:
+          - not_null
+
+      - name: category
+        description: Catégorie du produit.
+        data_tests:
+          - not_null
+
+      - name: brand
+        description: Marque du produit.
+        data_tests:
+          - not_null
+
+      - name: price
+        description: Prix courant du produit.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si le produit est actif ou inactif.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
+
+
+  # ============================================================
+  # ORDERS
+  # ============================================================
+
+  - name: orders_t
+    description: >
+      Table Silver contenant toutes les commandes nettoyées,
+      actives et inactives.
+
+    columns:
+
+      - name: order_id
+        description: Clé primaire de la commande.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: customer_id
+        description: Clé étrangère vers le client.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+          - relationships:
+              arguments:
+                to: ref('customers_t')
+                field: customer_id
+              config:
+                severity: warn
+                store_failures: true
+
+      - name: store_id
+        description: Clé étrangère vers le magasin.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+          - relationships:
+              arguments:
+                to: ref('stores_t')
+                field: store_id
+
+      - name: order_timestamp
+        description: Date et heure de la commande.
+        data_tests:
+          - not_null
+
+      - name: payment_method
+        description: Moyen de paiement utilisé.
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: Statut de la commande.
+        data_tests:
+          - not_null
+
+      - name: total_amount
+        description: Montant total de la commande.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si la commande est active ou inactive.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
+
+
+  # ============================================================
+  # ORDER ITEMS
+  # ============================================================
+
+  - name: order_items_t
+    description: >
+      Table Silver contenant toutes les lignes de commande nettoyées,
+      actives et inactives.
+
+    columns:
+
+      - name: order_item_id
+        description: Clé primaire de la ligne de commande.
+        data_tests:
+          - not_null
+          - unique
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: order_id
+        description: Clé étrangère vers la commande.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+          - relationships:
+              arguments:
+                to: ref('orders_t')
+                field: order_id
+              config:
+                severity: warn
+                store_failures: true
+
+      - name: product_id
+        description: Clé étrangère vers le produit.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+          - relationships:
+              arguments:
+                to: ref('products_t')
+                field: product_id
+              config:
+                severity: warn
+                store_failures: true
+
+      - name: quantity
+        description: Quantité commandée.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: unit_price
+        description: Prix unitaire au moment de la commande.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: line_amount
+        description: Montant total de la ligne de commande.
+        data_tests:
+          - not_null
+          - greater_than:
+              arguments:
+                value: 0
+
+      - name: created_timestamp
+        description: Date et heure de création dans la source.
+        data_tests:
+          - not_null
+
+      - name: updated_timestamp
+        description: Date et heure de la dernière modification.
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Indique si la ligne est active ou inactive.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Y", "N"]
+
+      - name: processed_at
+        description: Date et heure du traitement par dbt.
+        data_tests:
+          - not_null
