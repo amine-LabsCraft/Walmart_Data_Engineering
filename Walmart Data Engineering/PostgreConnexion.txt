@@ -1,0 +1,2 @@
+ID: kfw7uiapg4
+Connection: postgresql://tsdbadmin:dfxf8d9qdl9ct1x8@kfw7uiapg4.a1zhlxxt75.db.ghost.build:5432/tsdb?sslmode=require
