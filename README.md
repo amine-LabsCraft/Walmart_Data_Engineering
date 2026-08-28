@@ -562,8 +562,20 @@ This project demonstrates practical implementation across operational databases,
 
 **PostgreSQL • Python • Apache Spark • Databricks • Delta Lake • dbt • Apache Airflow**
 
+
+
 <br>
 
 ### ⭐ Built as a production-minded portfolio project for governed retail analytics
 
 </div>
+
+<p>
+  <a href="https://github.com/amine-LabsCraft">
+    <img src="https://img.shields.io/badge/GitHub-amine--LabsCraft-181717?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
+  <a href="https://amine-aitali-5752.netlify.app/">
+    <img src="https://img.shields.io/badge/Portfolio-amine--aitali--5752.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Portfolio">
+  </a>
+</p>
+
