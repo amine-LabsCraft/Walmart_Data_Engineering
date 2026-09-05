@@ -251,11 +251,6 @@ Gold translates trusted Silver entities into a model optimized for business anal
 
 ## ⭐ Gold Star Schema
 
-<div align="center">
-  <img src="./Docs/schema.png" alt="Walmart Gold Star Schema" width="100%">
-  <br>
-  <sub><b>Figure 3.</b> Overview of the Gold Star Schema centered on the sales fact table.</sub>
-</div>
 
 <div align="center">
   <img src="./Docs/walmart-star-schema-design.png" alt="Detailed Walmart Star Schema design" width="85%">
